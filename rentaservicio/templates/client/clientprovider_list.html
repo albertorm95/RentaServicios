@@ -1,47 +1,63 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<title>Agenda</title>
+	{% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
 </head>
 <body>
-
-<ul>	
-	<li><a href="{% url 'panel-inicio' %}">Regresar</a></li>
-</ul>
-
-<h3>Agenda</h3>
-<table>
-	<tr>
-		<th>Proveedor</th>
-		<th>Teléfono</th>
-		<th>Correo Electrónico</th>
-		<th>Dia</th>
-		<th>Hora</th>		
-		<th>Lugar</th>
-		<th></th>
-	</tr>
-	{% for item in object_list %}
-		<tr>
-			<td>{{ item.providerplace.provider.name }}</td>
-			<td>{{ item.providerplace.provider.phone }}</td>
-			<td>{{ item.providerplace.provider.email }}</td>
-			<td>{{ item.providerplace.day }}</td>
-			<td>{{ item.providerplace.service_time }}</td>
-			<td>
-			{{ item.providerplace.place.name }} <br>
-			{{ item.providerplace.place.address|linebreaks }} 
-			</td>
-			<td>				
-				<a href="{% url 'clientprovider-detail' pk=item.id %}">[Ver Cita]</a>
-			</td>
-		</tr>
-	{% empty %}
-		<tr>
-			<td colspan="4">No hay citas aún</td>
-		</tr>
-	{% endfor %}
-</table>
-
-
+	{% load account %}
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<a href="#" class="navbar-brand">Tarea</a>
+			<ul class="nav navbar-nav navbar-right">
+				<p class="navbar-text"><a href="{% url 'panel-inicio' %}" class="navbar-link">Regresar</a></p>
+				<a href="{% url 'account_logout' %}"><button type="button" class="btn btn-default navbar-btn">Cerrar Sesión</button></a>
+			</ul>
+		</div>
+	</nav>
+	<div class="container">
+		<div class="panel panel-default">
+			<div class="panel-heading">Agenda</div>
+			<table class="table">
+				<tr>
+					<th>Proveedor</th>
+					<th>Teléfono</th>
+					<th>Correo Electrónico</th>
+					<th>Dia</th>
+					<th>Hora</th>
+					<th>Lugar</th>
+					<th></th>
+				</tr>
+				{% for item in object_list %}
+					<tr>
+						<td>{{ item.providerplace.provider.name }}</td>
+						<td>{{ item.providerplace.provider.phone }}</td>
+						<td>{{ item.providerplace.provider.email }}</td>
+						<td>{{ item.providerplace.day }}</td>
+						<td>{{ item.providerplace.service_time }}</td>
+						<td>
+						{{ item.providerplace.place.name }} <br>
+						{{ item.providerplace.place.address|linebreaks }} 
+						</td>
+						<td>				
+							<a href="{% url 'clientprovider-detail' pk=item.id %}">[Ver Cita]</a>
+						</td>
+					</tr>
+					{% empty %}
+					<tr>
+						<td colspan="4">No hay citas aún</td>
+					</tr>
+				{% endfor %}
+			</table>
+		</div>
+	</div>
+	<footer class="footer">
+		<div class="container">
+			<p class="text-muted">Ingeniería en Redes y Tecnología Digital</p>
+		</div>
+	</footer>
+	<script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.js' %}"></script>
 </body>
 </html>

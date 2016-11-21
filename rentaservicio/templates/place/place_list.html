@@ -1,38 +1,56 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<title>Espacios</title>
+	{% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
 </head>
 <body>
-
-<ul>	
-	<li><a href="{% url 'panel-inicio' %}">Regresar</a></li>
-</ul>
-
-<h3>Lugares</h3>
-<p><a href="{% url 'places-create' %}">Agregar</a></p>
-<table>
-	<tr>
-		<th>Nombre</th>
-		<th>Dirección</th>
-		<th>Precio</th>
-	</tr>
-	{% for place in object_list %}
-		<tr>
-			<td>{{ place.name }}</td>
-			<td>{{ place.address }}</td>
-			<td>{{ place.price }}</td>
-			<td>
-				<a href="{% url 'places-update' pk=place.id %}">[Editar]</a> <br>
-				<a href="{% url 'places-delete' pk=place.id %}">[Eliminar]</a>
-			</td>
-		</tr>
-	{% empty %}
-		<tr>
-			<td colspan="4">No se encontraron lugares</td>
-		</tr>
-	{% endfor %}
-</table>
-
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<a href="{% url 'panel-inicio' %}" class="navbar-brand">Tarea</a>
+			<ul class="nav navbar-nav navbar-right">
+				<p class="navbar-text"><a href="{% url 'panel-inicio' %}" class="navbar-link">Regresar</a></p>
+				<a href="{% url 'account_logout' %}"><button type="button" class="btn btn-default navbar-btn">Cerrar Sesión</button></a>
+			</ul>
+		</div>
+	</nav>
+	<div class="container">
+		<div class="panel panel-default">
+			<div class="panel-heading">Espacios</div>
+			<div class="panel-body">
+				<a href="{% url 'places-create' %}">Agregar Espacio</a>
+			</div>
+			<table class="table">
+			<tr>
+				<th>Nombre</th>
+				<th>Dirección</th>
+				<th>Precio</th>
+				<th></th>
+			</tr>
+			{% for place in object_list %}
+				<tr>
+					<td>{{ place.name }}</td>
+					<td>{{ place.address }}</td>
+					<td>{{ place.price }}</td>
+					<td>
+						<a href="{% url 'places-update' pk=place.id %}">[Editar]</a> <br>
+						<a href="{% url 'places-delete' pk=place.id %}">[Eliminar]</a>
+					</td>
+				</tr>
+			{% empty %}
+				<tr>
+					<td colspan="4">No se encontraron lugares</td>
+				</tr>
+			{% endfor %}
+		</table>
+	</div>
+	<footer class="footer">
+		<div class="container">
+			<p class="text-muted">Ingeniería en Redes y Tecnología Digital</p>
+		</div>
+	</footer>
+	<script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.js' %}"></script>
 </body>
 </html>

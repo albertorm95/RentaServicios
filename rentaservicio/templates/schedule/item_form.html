@@ -1,21 +1,35 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<title>Agregar Horario</title>
+	{% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
 </head>
 <body>
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<a href="{% url 'panel-inicio' %}" class="navbar-brand">Tarea</a>
+			<ul class="nav navbar-nav navbar-right">
+				<p class="navbar-text"><a href="{% url 'panel-inicio' %}" class="navbar-link">Regresar</a></p>
+				<a href="{% url 'account_logout' %}"><button type="button" class="btn btn-default navbar-btn">Cerrar Sesión</button></a>
+			</ul>
+		</div>
+	</nav>
+	<div class="container">
+		<h3>Horario</h3>
+		<form action="" method="POST" autocomplete="off" novalidate="">
+			{% csrf_token %}
+			{{form.as_p}}
 
-<ul>	
-	<li><a href="{% url 'schedule-item-list' %}">Regresar</a></li>
-</ul>
-
-<h3>Horario</h3>
-<form action="" method="POST" autocomplete="off" novalidate="">
-	{% csrf_token %}
-	{{form.as_p}}
-
-	<button>Guardar</button>
-</form>
-
+			<button>Guardar</button>
+		</form>
+	</div>
+	<footer class="footer">
+		<div class="container">
+			<p class="text-muted">Ingeniería en Redes y Tecnología Digital</p>
+		</div>
+	</footer>
+	<script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.js' %}"></script>
 </body>
 </html>

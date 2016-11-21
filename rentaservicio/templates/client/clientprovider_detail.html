@@ -1,65 +1,77 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<title>Cita</title>
+	{% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
 </head>
 <body>
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<a href="{% url 'panel-inicio' %}" class="navbar-brand">Tarea</a>
+			<ul class="nav navbar-nav navbar-right">
+				<p class="navbar-text"><a href="{% url 'panel-inicio' %}" class="navbar-link">Regresar</a></p>
+				<a href="{% url 'account_logout' %}"><button type="button" class="btn btn-default navbar-btn">Cerrar Sesión</button></a>
+			</ul>
+		</div>
+	</nav>
+	<div class="container">
+		<div class="panel panel-default">
+			<div class="panel-heading">Agenda</div>
+			<div class="panel-heading">Datos del proveedor</div>
+			<table class="table">
+				<tr>
+					<td>Nombre :</td><td>{{ object.providerplace.provider.name }}</td>		
+				</tr>
+				<tr>
+					<td>Teléfono :</td><td>{{ object.providerplace.provider.phone }}</td>		
+				</tr>
+				<tr>
+					<td>Correo Electrónico :</td><td>{{ object.providerplace.provider.email }}</td>
+				</tr>
+			</table>
 
-<ul>	
-	<li><a href="{% url 'panel-inicio' %}">Regresar</a></li>
-</ul>
+			<div class="panel-heading">Datos del cliente</div>
+			<table class="table">
+				<tr>
+					<td>Cliente :</td><td>{{ object.client.name }}</td>		
+				</tr>
+				<tr>
+					<td>Teléfono :</td><td>{{ object.client.phone }}</td>		
+				</tr>
+				<tr>
+					<td>Correo Electrónico :</td><td>{{ object.client.email }}</td>
+				</tr>
+				<tr>
+					<td>Dirección :</td><td>{{ object.client.address|linebreaks }}</td>
+				</tr>
+			</table>
 
-<h3>Agenda</h3>
-
-
-<h4>Datos del proveedor</h4>
-<table>
-	<tr>
-		<td>Nombre :</td><td>{{ object.providerplace.provider.name }}</td>		
-	</tr>
-	<tr>
-		<td>Teléfono :</td><td>{{ object.providerplace.provider.phone }}</td>		
-	</tr>
-	<tr>
-		<td>Correo Electrónico :</td><td>{{ object.providerplace.provider.email }}</td>
-	</tr>
-</table>
-
-<h4>Datos del cliente</h4>
-<table>
-	<tr>
-		<td>Cliente :</td><td>{{ object.client.name }}</td>		
-	</tr>
-	<tr>
-		<td>Teléfono :</td><td>{{ object.client.phone }}</td>		
-	</tr>
-	<tr>
-		<td>Correo Electrónico :</td><td>{{ object.client.email }}</td>
-	</tr>
-	<tr>
-		<td>Dirección :</td><td>{{ object.client.address|linebreaks }}</td>
-	</tr>
-</table>
-
-<h4>Fecha y Hora</h4>
-<table>	
-	<tr>
-		<td>Dia :</td><td>{{ object.providerplace.day }}</td>
-	</tr>
-	<tr>
-		<td>Hora :</td><td>{{ object.providerplace.service_time }}</td>
-	</tr>
-	<tr>
-		<td>Lugar :</td>
-		<td>
-		{{ object.providerplace.place.name }}
-		{{ object.providerplace.place.address|linebreaks }}
-		</td>
-	</tr>
-</table>
-
-
-<a href="{% url 'clientprovider-delete' pk=object.id %}">Cancelar Cita</a>
-
+			<div class="panel-heading">Fecha y Hora</div>
+			<table class="table">
+				<tr>
+					<td>Dia :</td><td>{{ object.providerplace.day }}</td>
+				</tr>
+				<tr>
+					<td>Hora :</td><td>{{ object.providerplace.service_time }}</td>
+				</tr>
+				<tr>
+					<td>Lugar :</td>
+					<td>
+					{{ object.providerplace.place.name }}
+					{{ object.providerplace.place.address|linebreaks }}
+					</td>
+				</tr>
+			</table>
+		</div>
+		<a href="{% url 'clientprovider-delete' pk=object.id %}">Cancelar Cita</a>
+	</div>
+	<footer class="footer">
+		<div class="container">
+			<p class="text-muted">Ingeniería en Redes y Tecnología Digital</p>
+		</div>
+	</footer>
+	<script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.js' %}"></script>
 </body>
 </html>

@@ -1,110 +1,115 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<title>Inicio</title>
+	{% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
 </head>
 <body>
+	{% load account %}
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<a href="#" class="navbar-brand">Tarea</a>
+			<ul class="nav navbar-nav navbar-right">
+				{% if perfil == 'cliente' %}
+					<p class="navbar-text"><a href="{% url 'clientprovider-list' %}" class="navbar-link">Agenda</a></p>
+				{% elif perfil == 'proveedor' %}
+					<p class="navbar-text"><a href="{% url 'places-list' %}" class="navbar-link">Espacios</a></p>
+					<p class="navbar-text"><a href="{% url 'schedule-item-list' %}" class="navbar-link">Horarios</a></p>
+				{% endif %}
+				{% if perfil %}
+					<p class="navbar-text"><a href="{% url 'profile' %}" class="navbar-link">Perfil</a></p>
+				{% endif %}	
+				<a href="{% url 'account_logout' %}"><button type="button" class="btn btn-default navbar-btn">Cerrar Sesión</button></a>
+			</ul>
+		</div>
+	</nav>
+	<div class="container">
+		{% if perfil == 'cliente' %}
+			<p>Hola {% user_display user %}.</p>
+			<!-- lista de proveedores -->
+			<div class="panel panel-default">
+				<div class="panel-heading">Proveedores</div>
+				<table class="table">
+					<tr>
+						<th>Nombre</th>
+						<th>Teléfono</th>
+						<th>Dirección</th>
+						<th>Especialidad</th>		
+						<th></th>
+					</tr>
+					{% for item in providers %}
+						<tr>
+							<td>{{ item.name }}</td>
+							<td>{{ item.phone }}</td>
+							<td>{{ item.address }}</td>			
+							<td>
+								{% for provider_specialty in item.specialty.all  %}
+									{% if forloop.last %}
+										{{ provider_specialty.name }}
+									{% else %}	
+										{{ provider_specialty.name }},
+									{% endif %}
+								{% endfor %}
+							</td>
+							<td>				
+								<a href="{% url 'provider-detail' pk=item.id %}">[Ver]</a>
+							</td>
+						</tr>
+						{% empty %}
+						<tr>
+							<td colspan="4"></td>
+						</tr>
+					{% endfor %}
+				</table>
+			</div>
 
-<ul>
-	{% if perfil %}
-		<li><a href="{% url 'profile' %}">Perfíl</a></li>
-	{% endif %}	
-	<li><a href="{% url 'account_logout' %}">Cerrar Sesión</a></li>
-</ul>
+		{% elif perfil == 'proveedor' %}
+			<p>Hola {% user_display user %}.</p>
+			<!-- lista de proveedores -->
+			<div class="panel panel-default">
+				<div class="panel-heading">Clientes Agendados</div>
+				<table class="table">
+					<tr>
+						<th>Cliente</th>
+						<th>Teléfono</th>
+						<th>Dia</th>
+						<th>Hora</th>
+						<th>Lugar</th>
+						<th></th>
+					</tr>
+					{% for item in agenda %}
+						<tr>
+							<td>{{ item.client.name }}</td>
+							<td>{{ item.client.phone }}</td>
+							<td>{{ item.providerplace.day }}</td>
+							<td>{{ item.providerplace.service_time }}</td>
+							<td>{{ item.providerplace.place.name }}</td>
+							<td>				
+								<a href="{% url 'clientprovider-detail' pk=item.id %}">[Ver]</a>
+							</td>
+						</tr>
+						{% empty %}
+						<tr>
+							<td colspan="4">No hay clientes agendados aún</td>
+						</tr>
+					{% endfor %}
+				</table>
+			</div>
 
-
-
-{% load account %}
-
-{% if perfil == 'cliente' %}
-
-<ul>	
-	<li><a href="{% url 'clientprovider-list' %}">Agenda</a></li>	
-</ul>
-
-<p>Hola Cliente {% user_display user %}.</p>
-
-<!-- lista de proveedores -->
-<h3>Proveedores</h3>
-<table>
-	<tr>
-		<th>Nombre</th>
-		<th>Teléfono</th>
-		<th>Dirección</th>
-		<th>Especialidad</th>		
-		<th></th>
-	</tr>
-	{% for item in providers %}
-		<tr>
-			<td>{{ item.name }}</td>
-			<td>{{ item.phone }}</td>
-			<td>{{ item.address }}</td>			
-			<td>
-				{% for provider_specialty in item.specialty.all  %}
-					{% if forloop.last %}
-					{{ provider_specialty.name }}
-					{% else %}	
-					{{ provider_specialty.name }},
-					{% endif %}
-					
-				{% endfor %}
-			</td>
-			<td>				
-				<a href="{% url 'provider-detail' pk=item.id %}">[Ver]</a>
-			</td>
-		</tr>
-	{% empty %}
-		<tr>
-			<td colspan="4"></td>
-		</tr>
-	{% endfor %}
-</table>
-
-
-{% elif perfil == 'proveedor' %}
-
-<ul>	
-	<li><a href="{% url 'places-list' %}">Lugares</a></li>
-	<li><a href="{% url 'schedule-item-list' %}">Horarios</a></li>
-</ul>
-
-<p>Hola Proveedor {% user_display user %}.</p>
-
-<h3>Clientes Agendados</h3>
-<table>
-	<tr>
-		<th>Cliente</th>
-		<th>Teléfono</th>
-		<th>Dia</th>
-		<th>Hora</th>		
-		<th>Lugar</th>
-		<th></th>
-	</tr>
-	{% for item in agenda %}
-		<tr>
-			<td>{{ item.client.name }}</td>
-			<td>{{ item.client.phone }}</td>
-			<td>{{ item.providerplace.day }}</td>
-			<td>{{ item.providerplace.service_time }}</td>
-			<td>{{ item.providerplace.place.name }}</td>
-			<td>				
-				<a href="{% url 'clientprovider-detail' pk=item.id %}">[Ver]</a>
-			</td>
-		</tr>
-	{% empty %}
-		<tr>
-			<td colspan="4">No hay clientes agendados aún</td>
-		</tr>
-	{% endfor %}
-</table>
-
-
-{% else %}
-<p>
-	Hola {% user_display user %} para continuar debes registrarte como cliente o como proveedor.<br>
-	<a href="{% url 'profile-init' type="client" %}">Como cliente</a><br>
-	<a href="{% url 'profile-init' type="provider" %}">Como proveedor</a>	
-</p>
-{% endif %}
+		{% else %}
+			<p>Hola {% user_display user %} para continuar debes registrarte como cliente o como proveedor.<br>
+				<a href="{% url 'profile-init' type="client" %}">Como cliente</a><br>
+				<a href="{% url 'profile-init' type="provider" %}">Como proveedor</a>	
+			</p>
+		{% endif %}
+		</div>
+	<footer class="footer">
+		<div class="container">
+			<p class="text-muted">Ingeniería en Redes y Tecnología Digital</p>
+		</div>
+	</footer>
+	<script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.js' %}"></script>
 </body>
 </html>

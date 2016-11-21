@@ -1,67 +1,77 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<title>Proveedor</title>
+	{% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
 </head>
 <body>
-
-<ul>	
-	<li><a href="{% url 'panel-inicio' %}">Regresar</a></li>
-</ul>
-
-<h3>Proveedor</h3>
-<h4>{{ object.name }}</h4>
-
-<table>
-	<tr>
-		<td>Teléfono :</td><td>{{ object.phone }}</td>		
-	</tr>
-	<tr>
-		<td>Correo Electrónico :</td><td>{{ object.email }}</td>
-	</tr>
-	<tr>
-		<td>Especialidades :</td>
-		<td>
-		{% for provider_specialty in object.specialty.all  %}
-			{% if forloop.last %}
-			{{ provider_specialty.name }}
-			{% else %}	
-			{{ provider_specialty.name }},
-			{% endif %}			
-		{% endfor %}
-		</td>
-	</tr>
-
-	<tr>
-		<td>Dirección :</td>
-		<td>{{ object.address|linebreaksbr }}</td>
-	</tr>
-</table>
-
-<h3>Horarios</h3>
-
-<table>
-	<tr>
-		<th>Dia</th>
-		<th>Hora</th>
-		<th>Lugar</th>
-	</tr>
-	{% for item in schedule  %}
-	<tr>
-		<td>{{item.day}}</td>
-		<td>{{item.service_time}}</td>
-		<td>{{item.place.name}} <br> {{ item.place.address }}</td>
-		<td>			
-			<a href="{% url 'providerplace-detail' pk=item.id %}">[Agendar]</a>
-		</td>
-	</tr>
-	{% empty %}		
-	<tr>
-		<td colspan="4">No se han encontrado horarios</td>
-	</tr>
-	{% endfor %}	
-</table>
-
-
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<a href="{% url 'panel-inicio' %}" class="navbar-brand">Tarea</a>
+			<ul class="nav navbar-nav navbar-right">
+				<p class="navbar-text"><a href="{% url 'panel-inicio' %}" class="navbar-link">Regresar</a></p>
+				<a href="{% url 'account_logout' %}"><button type="button" class="btn btn-default navbar-btn">Cerrar Sesión</button></a>
+			</ul>
+		</div>
+	</nav>
+	<div class="container">
+		<div class="panel panel-default">
+			<div class="panel-heading">Proveedor: {{ object.name }}</div>
+			<table class="table">
+				<tr>
+					<td>Teléfono :</td><td>{{ object.phone }}</td>		
+				</tr>
+				<tr>
+					<td>Correo Electrónico :</td><td>{{ object.email }}</td>
+				</tr>
+				<tr>
+					<td>Especialidades :</td>
+					<td>
+					{% for provider_specialty in object.specialty.all  %}
+						{% if forloop.last %}
+						{{ provider_specialty.name }}
+						{% else %}	
+						{{ provider_specialty.name }},
+						{% endif %}			
+					{% endfor %}
+					</td>
+				</tr>
+				<tr>
+					<td>Dirección :</td>
+					<td>{{ object.address|linebreaksbr }}</td>
+				</tr>
+			</table>
+			<div class="panel-heading">Horarios</div>
+			<table class="table">
+				<tr>
+					<th>Dia</th>
+					<th>Hora</th>
+					<th>Lugar</th>
+				</tr>
+				{% for item in schedule  %}
+				<tr>
+					<td>{{item.day}}</td>
+					<td>{{item.service_time}}</td>
+					<td>{{item.place.name}} <br> {{ item.place.address }}</td>
+					<td>			
+						<a href="{% url 'providerplace-detail' pk=item.id %}">[Agendar]</a>
+					</td>
+				</tr>
+				{% empty %}		
+				<tr>
+					<td colspan="4">No se han encontrado horarios</td>
+				</tr>
+				{% endfor %}	
+			</table>
+		</div>
+	</div>
+	<footer class="footer">
+		<div class="container">
+			<p class="text-muted">Ingeniería en Redes y Tecnología Digital</p>
+		</div>
+	</footer>
+	<script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.js' %}"></script>
 </body>
 </html>

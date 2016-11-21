@@ -1,25 +1,42 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<title>Cancelar Cita</title>
+	{% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
 </head>
 <body>
+	{% load account %}
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<a href="{% url 'panel-inicio' %}" class="navbar-brand">Tarea</a>
+			<ul class="nav navbar-nav navbar-right">
+				<p class="navbar-text"><a href="{% url 'panel-inicio' %}" class="navbar-link">Regresar</a></p>
+				<a href="{% url 'account_logout' %}"><button type="button" class="btn btn-default navbar-btn">Cerrar Sesión</button></a>
+			</ul>
+		</div>
+	</nav>
+	<div class="container">
 
-<ul>	
-	<li><a href="{% url 'clientprovider-detail' pk=object.id %}">Regresar</a></li>
-</ul>
+		<h3>¿Desea cancelar la siguiente cita?</h3>
+		<p>
+			Ciente: {{object.client.name}} <br>
+			Proveedor: {{object.providerplace.provider.name}} <br>
+			Dia: {{ object.providerplace.day }} a las {{ object.providerplace.service_time }} <br>
+			Lugar: {{ object.providerplace.place.name }}
+		</p>
+		<form action="" method="POST">
+			{% csrf_token %}	
+			<button>Cancelar Cita</button>
+		</form>
 
-<h3>¿Desea cancelar la siguiente cita?</h3>
-<p>
-	Ciente: {{object.client.name}} <br>
-	Proveedor: {{object.providerplace.provider.name}} <br>
-	Dia: {{ object.providerplace.day }} a las {{ object.providerplace.service_time }} <br>
-	Lugar: {{ object.providerplace.place.name }}
-</p>
-<form action="" method="POST">
-	{% csrf_token %}	
-	<button>Cancelar</button>
-</form>
-
+	</div>
+	<footer class="footer">
+		<div class="container">
+			<p class="text-muted">Ingeniería en Redes y Tecnología Digital</p>
+		</div>
+	</footer>
+	<script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.js' %}"></script>
 </body>
 </html>
