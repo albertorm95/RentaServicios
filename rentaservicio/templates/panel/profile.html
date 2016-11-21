@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<ul>	
+	<li><a href="{% url 'panel-inicio' %}">Regresar</a></li>
+</ul>
+
+<h3>Perfil</h3>
+<form action="" method="POST" autocomplete="off">
+	{% csrf_token %}
+	{{form.as_p}}
+
+	{% if provider %} <p><a href="{% url 'specialty-create' %}">Agregar Especialidad</a></p>{% endif %}
+	<button>Guardar</button>
+</form>
+</body>
+</html>

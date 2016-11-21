@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<ul>	
+	<li><a href="{% url 'panel-inicio' %}">Regresar</a></li>
+</ul>
+
+<h3>Horarios</h3>
+<p><a href="{% url 'schedule-item-create' %}">Agregar Horario</a></p>
+
+<table>
+	<tr>
+		<th>Dia</th>
+		<th>Hora</th>
+		<th>Lugar</th>
+	</tr>
+	{% for place in object_list  %}
+	<tr>
+		<td>{{place.day}}</td>
+		<td>{{place.service_time}}</td>
+		<td>{{place.place.name}} <br> {{ place.place.address }}</td>
+		<td>
+			<a href="{% url 'schedule-item-update' pk=place.id %}">[Editar]</a> <br>
+			<a href="{% url 'schedule-item-delete' pk=place.id %}">[Eliminar]</a>
+		</td>
+	</tr>
+	{% empty %}		
+	<tr>
+		<td colspan="4">No se han encontrado horarios</td>		
+	</tr>
+	{% endfor %}	
+</table>
+
+</body>
+</html>

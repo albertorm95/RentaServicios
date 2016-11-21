@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 class Client(models.Model):
 	name = models.CharField(max_length=250, verbose_name="Nombre Completo")
 	phone = models.CharField(max_length=12, verbose_name="Teléfono")
-	address = models.TextField(max_length=12, verbose_name="Dirección")
+	address = models.TextField(verbose_name="Dirección")
 	age = models.IntegerField(verbose_name="Edad")
 	email = models.EmailField(verbose_name="Correo Electronico")
 	user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="cliente", verbose_name="Usuario")

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<ul>	
+	<li><a href="{% url 'schedule-item-list' %}">Regresar</a></li>
+</ul>
+
+<h3>Horario</h3>
+<form action="" method="POST" autocomplete="off" novalidate="">
+	{% csrf_token %}
+	{{form.as_p}}
+
+	<button>Guardar</button>
+</form>
+
+</body>
+</html>

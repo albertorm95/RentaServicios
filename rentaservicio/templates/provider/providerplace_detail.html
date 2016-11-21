@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<ul>	
+	<li><a href="{% url 'provider-detail' pk=object.provider.id %}">Regresar</a></li>
+</ul>
+
+<h3>¿Desea agendar?</h3>
+<p>
+	{{ object.provider.name }} <br>
+	El {{ object.day }} a las {{ object.service_time }} <br>
+	{{ object.place.address|linebreaksbr }}
+</p>
+
+<form action="{% url 'clientprovider-create' %}" method="POST">
+	{% csrf_token %}
+	{{ form }}
+	<button>Agendar</button>
+</form>
+
+
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<ul>	
+	<li><a href="{% url 'places-list' %}">Regresar</a></li>
+</ul>
+
+<h3>Desea eliminar {{ object }}</h3>
+<form action="" method="POST">
+	{% csrf_token %}	
+	<button>Guardar</button>
+</form>
+
+</body>
+</html>

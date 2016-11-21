@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<a href="{% url 'panel-inicio' %}">Regresar</a><br>
+<a href="{% url 'account_logout' %}">Cerrar Sesión</a><br>
+
+{% load account %}
+
+{% if type == 'client' %}
+<h1>Perfil para Cliente</h1>
+{% elif type == 'provider' %}
+<h1>Perfil para Proveedor</h1>
+{% endif %}
+
+<form action="" method="POST" novalidate="" autocomplete="off">
+	{%csrf_token %}
+	<p>
+		{{ form.as_p }}
+	</p>
+	<button>Guardar</button>	
+</form>
+
+
+</body>
+</html>

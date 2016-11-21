@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<ul>	
+	<li><a href="{% url 'panel-inicio' %}">Regresar</a></li>
+</ul>
+
+<h3>Agenda</h3>
+
+
+<h4>Datos del proveedor</h4>
+<table>
+	<tr>
+		<td>Nombre :</td><td>{{ object.providerplace.provider.name }}</td>		
+	</tr>
+	<tr>
+		<td>Teléfono :</td><td>{{ object.providerplace.provider.phone }}</td>		
+	</tr>
+	<tr>
+		<td>Correo Electrónico :</td><td>{{ object.providerplace.provider.email }}</td>
+	</tr>
+</table>
+
+<h4>Datos del cliente</h4>
+<table>
+	<tr>
+		<td>Cliente :</td><td>{{ object.client.name }}</td>		
+	</tr>
+	<tr>
+		<td>Teléfono :</td><td>{{ object.client.phone }}</td>		
+	</tr>
+	<tr>
+		<td>Correo Electrónico :</td><td>{{ object.client.email }}</td>
+	</tr>
+	<tr>
+		<td>Dirección :</td><td>{{ object.client.address|linebreaks }}</td>
+	</tr>
+</table>
+
+<h4>Fecha y Hora</h4>
+<table>	
+	<tr>
+		<td>Dia :</td><td>{{ object.providerplace.day }}</td>
+	</tr>
+	<tr>
+		<td>Hora :</td><td>{{ object.providerplace.service_time }}</td>
+	</tr>
+	<tr>
+		<td>Lugar :</td>
+		<td>
+		{{ object.providerplace.place.name }}
+		{{ object.providerplace.place.address|linebreaks }}
+		</td>
+	</tr>
+</table>
+
+
+<a href="{% url 'clientprovider-delete' pk=object.id %}">Cancelar Cita</a>
+
+</body>
+</html>

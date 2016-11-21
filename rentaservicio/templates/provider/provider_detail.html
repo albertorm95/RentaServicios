@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<ul>	
+	<li><a href="{% url 'panel-inicio' %}">Regresar</a></li>
+</ul>
+
+<h3>Proveedor</h3>
+<h4>{{ object.name }}</h4>
+
+<table>
+	<tr>
+		<td>Teléfono :</td><td>{{ object.phone }}</td>		
+	</tr>
+	<tr>
+		<td>Correo Electrónico :</td><td>{{ object.email }}</td>
+	</tr>
+	<tr>
+		<td>Especialidades :</td>
+		<td>
+		{% for provider_specialty in object.specialty.all  %}
+			{% if forloop.last %}
+			{{ provider_specialty.name }}
+			{% else %}	
+			{{ provider_specialty.name }},
+			{% endif %}			
+		{% endfor %}
+		</td>
+	</tr>
+
+	<tr>
+		<td>Dirección :</td>
+		<td>{{ object.address|linebreaksbr }}</td>
+	</tr>
+</table>
+
+<h3>Horarios</h3>
+
+<table>
+	<tr>
+		<th>Dia</th>
+		<th>Hora</th>
+		<th>Lugar</th>
+	</tr>
+	{% for item in schedule  %}
+	<tr>
+		<td>{{item.day}}</td>
+		<td>{{item.service_time}}</td>
+		<td>{{item.place.name}} <br> {{ item.place.address }}</td>
+		<td>			
+			<a href="{% url 'providerplace-detail' pk=item.id %}">[Agendar]</a>
+		</td>
+	</tr>
+	{% empty %}		
+	<tr>
+		<td colspan="4">No se han encontrado horarios</td>
+	</tr>
+	{% endfor %}	
+</table>
+
+
+</body>
+</html>

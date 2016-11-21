@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<ul>	
+	<li><a href="{% url 'panel-inicio' %}">Regresar</a></li>
+</ul>
+
+<h3>Lugares</h3>
+<p><a href="{% url 'places-create' %}">Agregar</a></p>
+<table>
+	<tr>
+		<th>Nombre</th>
+		<th>Dirección</th>
+		<th>Precio</th>
+	</tr>
+	{% for place in object_list %}
+		<tr>
+			<td>{{ place.name }}</td>
+			<td>{{ place.address }}</td>
+			<td>{{ place.price }}</td>
+			<td>
+				<a href="{% url 'places-update' pk=place.id %}">[Editar]</a> <br>
+				<a href="{% url 'places-delete' pk=place.id %}">[Eliminar]</a>
+			</td>
+		</tr>
+	{% empty %}
+		<tr>
+			<td colspan="4">No se encontraron lugares</td>
+		</tr>
+	{% endfor %}
+</table>
+
+</body>
+</html>

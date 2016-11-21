@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<ul>	
+	<li><a href="{% url 'clientprovider-detail' pk=object.id %}">Regresar</a></li>
+</ul>
+
+<h3>¿Desea cancelar la siguiente cita?</h3>
+<p>
+	Ciente: {{object.client.name}} <br>
+	Proveedor: {{object.providerplace.provider.name}} <br>
+	Dia: {{ object.providerplace.day }} a las {{ object.providerplace.service_time }} <br>
+	Lugar: {{ object.providerplace.place.name }}
+</p>
+<form action="" method="POST">
+	{% csrf_token %}	
+	<button>Cancelar</button>
+</form>
+
+</body>
+</html>

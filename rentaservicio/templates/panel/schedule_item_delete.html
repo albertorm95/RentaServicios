@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<ul>	
+	<li><a href="{% url 'profile' %}">Regresar</a></li>
+</ul>
+
+<h3>Desea eliminar el horario {{ object.day }} {{ object.service_time }} {{ object.place.name }}</h3>
+<form action="" method="POST">
+	{% csrf_token %}	
+	<button>Confirmar</button>
+</form>
+
+</body>
+</html>
